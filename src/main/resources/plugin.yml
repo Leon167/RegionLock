@@ -1,0 +1,12 @@
+name: RegionLock
+version: 1.0
+authors: [Leon167, LekoHD]
+description: Official RegionLock Plugin
+main: de.leonkoth.regionlock.RegionLock
+softdepend: [Multiverse-Core, MCJukebox]
+
+commands:
+  regionlock:
+    aliases: [rl,rlock,regionl]
+    description: Get information on how to use this Plugin
+    usage: /regionlock to get more information

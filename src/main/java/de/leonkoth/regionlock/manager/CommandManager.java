@@ -20,17 +20,19 @@ public class CommandManager implements CommandExecutor{
     private List<_Command> commands;
     private String name;
     private RegionLock rl;
+    private MessageManager messageManager;
 
-    public CommandManager(RegionLock rl, String name)
+    public CommandManager(RegionLock rl, String name, MessageManager messageManager)
     {
         this.rl = rl;
         this.name = name;
         commands = new ArrayList<_Command>();
+        this.messageManager = messageManager;
     }
 
-    public CommandManager(RegionLock rl, String name, List<_Command> commands)
+    public CommandManager(RegionLock rl, String name, List<_Command> commands, MessageManager messageManager)
     {
-        this(rl, name);
+        this(rl, name, messageManager);
         if(commands != null)
         {
             this.commands = commands;
@@ -64,13 +66,13 @@ public class CommandManager implements CommandExecutor{
         {
             if(cmd.getName().equalsIgnoreCase(name))
             {
-                if(cmd.accept(args))
+                if(cmd.accept(args, cSender))
                 {
-                    cmd.handle(args, cSender);
+                    cmd.handle(args, cSender, messageManager);
                 }
                 else
                 {
-                    cmd.handleFalseUsage(args, cSender);
+                    cmd.handleFalseUsage(args, cSender, messageManager);
                 }
                 return true;
             }
@@ -80,13 +82,13 @@ public class CommandManager implements CommandExecutor{
                 {
                     if(name.equalsIgnoreCase(alias))
                     {
-                        if(cmd.accept(args))
+                        if(cmd.accept(args, cSender))
                         {
-                            cmd.handle(args, cSender);
+                            cmd.handle(args, cSender, messageManager);
                         }
                         else
                         {
-                            cmd.handleFalseUsage(args, cSender);
+                            cmd.handleFalseUsage(args, cSender, messageManager);
                         }
                         return true;
                     }
@@ -103,7 +105,7 @@ public class CommandManager implements CommandExecutor{
 
     private void showUsage(CommandSender cs)
     {
-        cs.sendMessage(new String[]{""});
+        cs.sendMessage(new String[]{"Usage"});
     }
 
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {

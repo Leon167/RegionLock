@@ -1,0 +1,10 @@
+config:
+  LocaleFileName: locale_en.yml
+  SaveOnDisable: false
+  StoreData: binary
+  MySQL:
+    Host: localhost
+    Port: 3306
+    Database: database
+    Username: username
+    Password: password
